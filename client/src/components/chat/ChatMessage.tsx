@@ -11,7 +11,7 @@ export function ChatMessage({ message, isUser, timestamp }: ChatMessageProps) {
     return (
       <div className="flex mb-4 justify-end">
         <div className="max-w-[80%]">
-          <div className="bg-neutral-100 text-neutral-800 px-4 py-2 rounded-[18px_18px_18px_0] inline-block mb-1">
+          <div className="bg-neutral-100 text-neutral-800 px-4 py-2 rounded-[18px_18px_4px_18px] inline-block mb-1">
             <p className="text-sm">{message}</p>
           </div>
           <div className="text-xs text-neutral-500 mr-1 text-right">{timestamp}</div>
@@ -26,8 +26,11 @@ export function ChatMessage({ message, isUser, timestamp }: ChatMessageProps) {
         <BookOpen className="h-4 w-4" />
       </div>
       <div className="max-w-[80%]">
-        <div className="bg-primary text-white px-4 py-2 rounded-[18px_18px_0_18px] inline-block mb-1">
-          <p className="text-sm" dangerouslySetInnerHTML={{ __html: message.replace(/\n/g, '<br/>') }} />
+        <div className="bg-primary text-white px-4 py-2 rounded-[18px_18px_18px_4px] inline-block mb-1">
+          <p 
+            className="text-sm" 
+            dangerouslySetInnerHTML={{ __html: message.replace(/\n/g, '<br/>') }} 
+          />
         </div>
         <div className="text-xs text-neutral-500 ml-1">{timestamp}</div>
       </div>

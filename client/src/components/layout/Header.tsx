@@ -1,27 +1,56 @@
-import { Menu, Search } from "lucide-react";
+import { Menu, Search, BookOpen, X, ArrowLeft, Bell } from "lucide-react";
 import { useBookContext } from "@/context/BookContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function Header() {
-  const { isMobileView } = useBookContext();
+  const { isMobileView, selectedBook, setSelectedBook, setIsChatOpen } = useBookContext();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
   
   // Toggle mobile sidebar
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
   
+  // Detect scroll for header shadow
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
+  // Handle back button in chat
+  const handleBackFromChat = () => {
+    setIsChatOpen(false);
+  };
+  
   return (
     <>
-      <header className="bg-white border-b border-neutral-200 px-4 py-2 flex items-center justify-between">
-        <div className="flex items-center md:hidden">
-          <button 
-            className="p-1 rounded-md hover:bg-neutral-100"
-            onClick={toggleSidebar}
-          >
-            <Menu className="h-6 w-6 text-neutral-800" />
-          </button>
-          <h1 className="font-semibold text-primary ml-2 text-lg">Bharat Scouts</h1>
+      <header className={`mobile-header z-20 ${isScrolled ? 'shadow-sm' : ''} ${selectedBook ? 'bg-primary text-white' : 'bg-white text-neutral-800'}`}>
+        <div className="flex items-center">
+          {selectedBook ? (
+            <button 
+              className="p-2 rounded-full hover:bg-primary-dark"
+              onClick={handleBackFromChat}
+            >
+              <ArrowLeft className="h-5 w-5 text-white" />
+            </button>
+          ) : (
+            <button 
+              className="md:hidden p-2 rounded-full hover:bg-neutral-100"
+              onClick={toggleSidebar}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          )}
+          
+          <h1 className={`font-semibold ml-1 text-lg ${selectedBook ? 'text-white' : 'text-primary'}`}>
+            {selectedBook ? selectedBook.title : "Bharat Scouts"}
+          </h1>
         </div>
         
         <div className="hidden md:block">
@@ -29,14 +58,35 @@ export function Header() {
         </div>
         
         <div className="flex items-center">
-          <div className="relative mr-2">
-            <input 
-              type="text" 
-              placeholder="Search books..." 
-              className="w-40 md:w-64 pl-8 pr-2 py-1 text-sm border border-neutral-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-            />
-            <Search className="h-4 w-4 text-neutral-500 absolute left-2 top-1/2 transform -translate-y-1/2" />
-          </div>
+          {searchActive ? (
+            <div className="absolute inset-x-0 top-0 bg-white z-30 flex items-center px-4 h-14">
+              <ArrowLeft 
+                className="h-5 w-5 text-neutral-500 mr-2" 
+                onClick={() => setSearchActive(false)}
+              />
+              <input 
+                type="text" 
+                placeholder="Search scout books..." 
+                className="flex-1 py-2 bg-transparent border-none focus:outline-none text-neutral-800"
+                autoFocus
+              />
+            </div>
+          ) : (
+            <>
+              <button 
+                className={`p-2 rounded-full ${selectedBook ? 'hover:bg-primary-dark' : 'hover:bg-neutral-100'}`}
+                onClick={() => setSearchActive(true)}
+              >
+                <Search className={`h-5 w-5 ${selectedBook ? 'text-white' : 'text-neutral-500'}`} />
+              </button>
+              
+              <button 
+                className={`p-2 rounded-full ${selectedBook ? 'hover:bg-primary-dark' : 'hover:bg-neutral-100'}`}
+              >
+                <Bell className={`h-5 w-5 ${selectedBook ? 'text-white' : 'text-neutral-500'}`} />
+              </button>
+            </>
+          )}
         </div>
       </header>
       
@@ -47,60 +97,85 @@ export function Header() {
             className="absolute inset-0 bg-neutral-900 bg-opacity-50"
             onClick={() => setSidebarOpen(false)}
           />
-          <div className={`absolute top-0 left-0 bottom-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className={`absolute top-0 left-0 bottom-0 w-[85%] max-w-xs bg-white shadow-xl transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} slide-in`}>
             <div className="p-4 border-b border-neutral-200 flex justify-between items-center">
               <h1 className="font-semibold text-primary text-xl flex items-center">
                 <BookOpen className="h-6 w-6 mr-2" />
                 Bharat Scouts
               </h1>
               <button 
-                className="p-1 rounded-md text-neutral-500 hover:bg-neutral-100"
+                className="p-1 rounded-full text-neutral-500 hover:bg-neutral-100"
                 onClick={() => setSidebarOpen(false)}
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
             
-            <nav className="p-4">
-              <h2 className="font-semibold text-neutral-800 mb-2">Book Categories</h2>
-              <ul>
-                <li className="mb-1">
-                  <a href="#" className="block px-2 py-2 rounded hover:bg-neutral-100 text-neutral-700 hover:text-primary">
-                    Scout Guides
-                  </a>
-                </li>
-                <li className="mb-1">
-                  <a href="#" className="block px-2 py-2 rounded hover:bg-neutral-100 text-neutral-700 hover:text-primary">
-                    Training Manuals
-                  </a>
-                </li>
-                <li className="mb-1">
-                  <a href="#" className="block px-2 py-2 rounded bg-primary/10 text-primary font-semibold">
-                    Handbooks
-                  </a>
-                </li>
-                <li className="mb-1">
-                  <a href="#" className="block px-2 py-2 rounded hover:bg-neutral-100 text-neutral-700 hover:text-primary">
-                    Activity Books
-                  </a>
-                </li>
-                <li className="mb-1">
-                  <a href="#" className="block px-2 py-2 rounded hover:bg-neutral-100 text-neutral-700 hover:text-primary">
-                    History & Heritage
-                  </a>
-                </li>
-              </ul>
-            </nav>
-            
-            <div className="p-4 border-t border-neutral-200">
-              <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2">
-                  <span className="text-sm font-semibold">BS</span>
+            <div className="overflow-y-auto h-[calc(100%-64px)]">
+              <div className="p-4 border-b border-neutral-100">
+                <div className="bg-primary/5 p-3 rounded-lg">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mr-3">
+                      <span className="text-sm font-semibold">BS</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold">Scout User</p>
+                      <p className="text-xs text-neutral-500">Basic Member</p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold">Scout User</p>
-                  <p className="text-xs text-neutral-500">Basic Member</p>
-                </div>
+              </div>
+              
+              <nav className="p-4">
+                <h2 className="font-semibold text-neutral-800 mb-2">Book Categories</h2>
+                <ul>
+                  <li className="mb-1">
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-primary">
+                      Scout Guides
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-primary">
+                      Training Manuals
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a href="#" className="block px-4 py-3 rounded-lg bg-primary/10 text-primary font-semibold">
+                      Handbooks
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-primary">
+                      Activity Books
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-primary">
+                      History & Heritage
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              
+              <div className="p-4">
+                <h2 className="font-semibold text-neutral-800 mb-2">Settings</h2>
+                <ul>
+                  <li className="mb-1">
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700">
+                      Profile Settings
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700">
+                      Notifications
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700">
+                      Help & Support
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -109,6 +184,3 @@ export function Header() {
     </>
   );
 }
-
-// Fix missing imports
-import { BookOpen, X } from "lucide-react";
