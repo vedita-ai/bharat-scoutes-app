@@ -26,17 +26,17 @@ export default function Profile() {
             bg-[#f4f6fa]
           `}>
             <div className={`${isMobileView ? 'px-4 py-2' : ''}`}>
-              {/* Profile header with Indian flag theme */}
+              {/* Profile header with full Indian flag theme */}
               <div className="mb-6 text-white rounded-xl shadow-md overflow-hidden">
-                <div className="h-24 relative bg-gradient-to-b from-[#FF9933] via-white to-[#138808]">
-                  {/* Overlay to make the text more readable */}
+                <div className="relative bg-gradient-to-b from-[#FF9933] via-white to-[#138808]">
+                  {/* Overlay to improve text readability */}
                   <div className="absolute inset-0 bg-black/10"></div>
                   
-                  {/* Ashoka Chakra in the center */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#000080] flex items-center justify-center">
+                  {/* Ashoka Chakra representation in the center */}
+                  <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#000080] flex items-center justify-center z-10">
                     <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
                       <div className="relative w-8 h-8">
-                        {/* Simulating the 24 spokes of the Ashoka Chakra with lines */}
+                        {/* Simulating the spokes of the Ashoka Chakra with lines */}
                         {[...Array(12)].map((_, i) => (
                           <div 
                             key={i} 
@@ -47,21 +47,23 @@ export default function Profile() {
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex flex-col items-center -mt-16 pb-6 bg-[#1D4289] pt-2">
-                  <Avatar className="h-20 w-20 mb-4 border-4 border-white shadow-md">
-                    <AvatarImage src="https://github.com/shadcn.png" alt="User" />
-                    <AvatarFallback className="bg-[#1D4289] text-white text-xl">BS</AvatarFallback>
-                  </Avatar>
-                  <h1 className="text-xl font-bold text-center text-white">Bharat Scout</h1>
-                  <p className="text-[#ccd7eb] text-sm">Scout ID: BS12345678</p>
-                  <div className="mt-3 flex space-x-3">
-                    <button className="bg-[#FFD700] text-[#1D4289] rounded-full text-sm px-4 py-1.5 font-medium shadow-sm">
-                      Edit Profile
-                    </button>
-                    <button className="bg-white/20 text-white border border-white/30 rounded-full text-sm px-4 py-1.5 font-medium">
-                      View Badge Card
-                    </button>
+                  
+                  {/* Profile content with the flag background */}
+                  <div className="relative pt-20 pb-6 flex flex-col items-center z-10">
+                    <Avatar className="h-20 w-20 mb-4 border-4 border-white shadow-md">
+                      <AvatarImage src="https://github.com/shadcn.png" alt="User" />
+                      <AvatarFallback className="bg-[#1D4289] text-white text-xl">BS</AvatarFallback>
+                    </Avatar>
+                    <h1 className="text-xl font-bold text-center text-[#1D4289]">Bharat Scout</h1>
+                    <p className="text-[#1D4289] text-sm">Scout ID: BS12345678</p>
+                    <div className="mt-3 flex space-x-3">
+                      <button className="bg-[#FFD700] text-[#1D4289] rounded-full text-sm px-4 py-1.5 font-medium shadow-sm">
+                        Edit Profile
+                      </button>
+                      <button className="bg-[#1D4289] text-white rounded-full text-sm px-4 py-1.5 font-medium shadow-sm">
+                        View Badge Card
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
