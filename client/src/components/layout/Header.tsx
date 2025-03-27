@@ -30,60 +30,60 @@ export function Header() {
   
   return (
     <>
-      <header className={`mobile-header z-20 ${isScrolled ? 'shadow-sm' : ''} ${selectedBook ? 'bg-primary text-white' : 'bg-white text-neutral-800'}`}>
+      <header className="mobile-header z-20">
         <div className="flex items-center">
           {selectedBook ? (
             <button 
-              className="p-2 rounded-full hover:bg-primary-dark"
+              className="p-2 rounded-full hover:bg-[#1c3671]"
               onClick={handleBackFromChat}
             >
               <ArrowLeft className="h-5 w-5 text-white" />
             </button>
           ) : (
             <button 
-              className="md:hidden p-2 rounded-full hover:bg-neutral-100"
+              className="md:hidden p-2 rounded-full hover:bg-[#1c3671]"
               onClick={toggleSidebar}
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="h-5 w-5 text-white" />
             </button>
           )}
           
-          <h1 className={`font-semibold ml-1 text-lg ${selectedBook ? 'text-white' : 'text-primary'}`}>
+          <h1 className="font-semibold ml-1 text-lg text-white">
             {selectedBook ? selectedBook.title : "Bharat Scouts"}
           </h1>
         </div>
         
         <div className="hidden md:block">
-          <h2 className="font-semibold text-neutral-800">Handbook Library</h2>
+          <h2 className="font-semibold text-white">Handbook Library</h2>
         </div>
         
         <div className="flex items-center">
           {searchActive ? (
-            <div className="absolute inset-x-0 top-0 bg-white z-30 flex items-center px-4 h-14">
+            <div className="absolute inset-x-0 top-0 bg-[#1D4289] z-30 flex items-center px-4 h-14">
               <ArrowLeft 
-                className="h-5 w-5 text-neutral-500 mr-2" 
+                className="h-5 w-5 text-white mr-2" 
                 onClick={() => setSearchActive(false)}
               />
               <input 
                 type="text" 
                 placeholder="Search scout books..." 
-                className="flex-1 py-2 bg-transparent border-none focus:outline-none text-neutral-800"
+                className="flex-1 py-2 bg-transparent border-none focus:outline-none text-white placeholder-gray-300"
                 autoFocus
               />
             </div>
           ) : (
             <>
               <button 
-                className={`p-2 rounded-full ${selectedBook ? 'hover:bg-primary-dark' : 'hover:bg-neutral-100'}`}
+                className="p-2 rounded-full hover:bg-[#1c3671]"
                 onClick={() => setSearchActive(true)}
               >
-                <Search className={`h-5 w-5 ${selectedBook ? 'text-white' : 'text-neutral-500'}`} />
+                <Search className="h-5 w-5 text-white" />
               </button>
               
               <button 
-                className={`p-2 rounded-full ${selectedBook ? 'hover:bg-primary-dark' : 'hover:bg-neutral-100'}`}
+                className="p-2 rounded-full hover:bg-[#1c3671]"
               >
-                <Bell className={`h-5 w-5 ${selectedBook ? 'text-white' : 'text-neutral-500'}`} />
+                <Bell className="h-5 w-5 text-white" />
               </button>
             </>
           )}
@@ -98,13 +98,13 @@ export function Header() {
             onClick={() => setSidebarOpen(false)}
           />
           <div className={`absolute top-0 left-0 bottom-0 w-[85%] max-w-xs bg-white shadow-xl transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} slide-in`}>
-            <div className="p-4 border-b border-neutral-200 flex justify-between items-center">
-              <h1 className="font-semibold text-primary text-xl flex items-center">
+            <div className="p-4 border-b border-neutral-200 flex justify-between items-center bg-[#1D4289] text-white">
+              <h1 className="font-semibold text-xl flex items-center">
                 <BookOpen className="h-6 w-6 mr-2" />
                 Bharat Scouts
               </h1>
               <button 
-                className="p-1 rounded-full text-neutral-500 hover:bg-neutral-100"
+                className="p-1 rounded-full text-white hover:bg-[#1c3671]"
                 onClick={() => setSidebarOpen(false)}
               >
                 <X className="h-6 w-6" />
@@ -113,9 +113,9 @@ export function Header() {
             
             <div className="overflow-y-auto h-[calc(100%-64px)]">
               <div className="p-4 border-b border-neutral-100">
-                <div className="bg-primary/5 p-3 rounded-lg">
+                <div className="bg-[#1D4289]/10 p-3 rounded-lg">
                   <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mr-3">
+                    <div className="w-10 h-10 rounded-full bg-[#1D4289] text-white flex items-center justify-center mr-3">
                       <span className="text-sm font-semibold">BS</span>
                     </div>
                     <div>
@@ -130,28 +130,28 @@ export function Header() {
                 <h2 className="font-semibold text-neutral-800 mb-2">Book Categories</h2>
                 <ul>
                   <li className="mb-1">
-                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-primary">
-                      Scout Guides
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-[#1D4289]">
+                      Guides
                     </a>
                   </li>
                   <li className="mb-1">
-                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-primary">
-                      Training Manuals
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-[#1D4289]">
+                      Leadership
                     </a>
                   </li>
                   <li className="mb-1">
-                    <a href="#" className="block px-4 py-3 rounded-lg bg-primary/10 text-primary font-semibold">
+                    <a href="#" className="block px-4 py-3 rounded-lg bg-[#1D4289]/10 text-[#1D4289] font-semibold">
                       Handbooks
                     </a>
                   </li>
                   <li className="mb-1">
-                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-primary">
-                      Activity Books
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-[#1D4289]">
+                      Skills
                     </a>
                   </li>
                   <li className="mb-1">
-                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-primary">
-                      History & Heritage
+                    <a href="#" className="block px-4 py-3 rounded-lg hover:bg-neutral-100 text-neutral-700 hover:text-[#1D4289]">
+                      Cubs
                     </a>
                   </li>
                 </ul>

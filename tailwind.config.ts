@@ -44,6 +44,11 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        bharat: {
+          blue: "hsl(var(--bharat-blue))",
+          green: "hsl(var(--bharat-green))",
+          yellow: "hsl(var(--bharat-yellow))",
+        },
         chart: {
           "1": "hsl(var(--chart-1))",
           "2": "hsl(var(--chart-2))",

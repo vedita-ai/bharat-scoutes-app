@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --bharat-blue: 224 63% 33%; /* #1D4289 */
+    --bharat-green: 120 100% 25%; /* #008000 */
+    --bharat-yellow: 50 100% 50%; /* #FFD700 */
+  }
+
   * {
     @apply border-border;
   }
@@ -31,7 +37,7 @@
 
   .mobile-header {
     height: 56px;
-    @apply bg-white flex items-center justify-between px-4 border-b border-neutral-200 fixed top-0 w-full z-10;
+    @apply bg-[#1D4289] text-white flex items-center justify-between px-4 border-b border-[#1D4289] fixed top-0 w-full z-10;
     padding-top: max(env(safe-area-inset-top, 0), 4px);
   }
 
@@ -43,9 +49,17 @@
   }
 
   .mobile-nav {
-    @apply bg-white border-t border-neutral-200 fixed bottom-0 left-0 right-0 z-10;
+    @apply bg-[#1D4289] text-white border-t border-[#1D4289] fixed bottom-0 left-0 right-0 z-10;
     height: 64px;
     padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  .bharat-accent {
+    @apply text-[#FFD700];
+  }
+  
+  .bharat-green {
+    @apply text-[#008000];
   }
 
   .scrollbar-hide {
