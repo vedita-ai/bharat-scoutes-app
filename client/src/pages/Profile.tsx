@@ -26,13 +26,29 @@ export default function Profile() {
             bg-[#f4f6fa]
           `}>
             <div className={`${isMobileView ? 'px-4 py-2' : ''}`}>
-              {/* Profile header with Bharat Scouts colors */}
-              <div className="mb-6 bg-[#1D4289] text-white rounded-xl shadow-md overflow-hidden">
-                <div className="h-24 bg-[#1D4289] relative">
-                  {/* Banner with India flag colors */}
-                  <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#FF9933] via-white to-[#138808]"></div>
+              {/* Profile header with Indian flag theme */}
+              <div className="mb-6 text-white rounded-xl shadow-md overflow-hidden">
+                <div className="h-24 relative bg-gradient-to-b from-[#FF9933] via-white to-[#138808]">
+                  {/* Overlay to make the text more readable */}
+                  <div className="absolute inset-0 bg-black/10"></div>
+                  
+                  {/* Ashoka Chakra in the center */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#000080] flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
+                      <div className="relative w-8 h-8">
+                        {/* Simulating the 24 spokes of the Ashoka Chakra with lines */}
+                        {[...Array(12)].map((_, i) => (
+                          <div 
+                            key={i} 
+                            className="absolute top-1/2 left-1/2 w-8 h-0.5 bg-white"
+                            style={{ transform: `translate(-50%, -50%) rotate(${i * 15}deg)` }}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-col items-center -mt-16 pb-6">
+                <div className="flex flex-col items-center -mt-16 pb-6 bg-[#1D4289] pt-2">
                   <Avatar className="h-20 w-20 mb-4 border-4 border-white shadow-md">
                     <AvatarImage src="https://github.com/shadcn.png" alt="User" />
                     <AvatarFallback className="bg-[#1D4289] text-white text-xl">BS</AvatarFallback>
