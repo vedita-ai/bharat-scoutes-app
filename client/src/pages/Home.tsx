@@ -35,7 +35,7 @@ export default function Home() {
       </main>
       
       {/* Mobile Navigation - only visible on mobile */}
-      {isMobileView && <MobileNavigation />}
+      {isMobileView && <MobileNavigation activeTab="home" />}
     </div>
   );
 }
