@@ -23,17 +23,22 @@ export default function Home() {
   }, [isMobileView, isChatOpen]);
 
   return (
-    <div className="flex h-screen bg-neutral-50">
+    <div className="mobile-container">
       {/* Sidebar - hidden on mobile */}
       <Sidebar />
       
       {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-hidden">
+      <main className="flex-1 flex flex-col overflow-hidden h-full">
         <Header />
         
         <div className="flex-1 flex overflow-hidden">
           {/* Books Grid Section */}
-          <div className={`flex-1 overflow-y-auto scrollbar-hide p-4 bg-neutral-50 ${isMobileView && isChatOpen ? 'hidden' : ''}`}>
+          <div className={`
+            flex-1 
+            ${isMobileView ? 'mobile-content scrollbar-hide' : 'overflow-y-auto p-4'} 
+            bg-neutral-50 
+            ${isMobileView && isChatOpen ? 'hidden' : ''}
+          `}>
             <BookGrid />
           </div>
 
@@ -41,7 +46,7 @@ export default function Home() {
           <div 
             className={`
               ${!selectedBook || (!isChatOpen && isMobileView) ? 'hidden' : ''}
-              ${isMobileView ? 'fixed inset-0 z-30 bg-white' : 'w-full md:w-1/2 lg:w-2/5'}
+              ${isMobileView ? 'fixed inset-0 z-30 bg-white slide-in' : 'w-full md:w-1/2 lg:w-2/5'}
               flex flex-col border-l border-neutral-200 bg-white
             `}
           >
@@ -50,7 +55,7 @@ export default function Home() {
         </div>
       </main>
       
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - only visible on mobile */}
       {isMobileView && <MobileNavigation />}
     </div>
   );
