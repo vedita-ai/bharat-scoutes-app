@@ -3,14 +3,19 @@ import { useBookChat } from "@/hooks/useBookChat";
 import { ChatInput } from "@/components/chat/ChatInput";
 import { ChatMessage } from "@/components/chat/ChatMessage";
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, BookOpen } from "lucide-react";
+import { ChevronDown, BookOpen, X, ArrowLeft } from "lucide-react";
 
 export function ChatInterface() {
-  const { selectedBook, isMobileView } = useBookContext();
+  const { selectedBook, isMobileView, setIsChatOpen } = useBookContext();
   const { messages, sendMessage } = useBookChat(selectedBook?.id || 0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
+  
+  // Close chat function
+  const handleCloseChat = () => {
+    setIsChatOpen(false);
+  };
   
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -42,58 +47,59 @@ export function ChatInterface() {
   if (!selectedBook) return null;
   
   return (
-    <div className="flex flex-col h-full">
-      {/* Book Detail Header on desktop */}
-      {!isMobileView && (
-        <div className="p-4 border-b border-neutral-200 flex items-start">
-          <div className="w-16 h-20 bg-neutral-200 rounded flex-shrink-0 mr-3 overflow-hidden">
-            <img 
-              src={selectedBook.coverImage} 
-              alt={`${selectedBook.title} Cover`} 
-              className="w-full h-full object-cover" 
-            />
+    <div className="flex flex-col h-full bg-white">
+      {/* Chat Header */}
+      <div className="sticky top-0 z-10 bg-white border-b border-neutral-200">
+        <div className="px-4 py-3 flex items-center justify-between">
+          <button 
+            onClick={handleCloseChat}
+            className="p-2 -ml-2 rounded-full hover:bg-neutral-100"
+            aria-label="Close chat"
+          >
+            {isMobileView ? (
+              <X className="h-5 w-5 text-neutral-700" />
+            ) : (
+              <ArrowLeft className="h-5 w-5 text-neutral-700" />
+            )}
+          </button>
+          
+          <div className="flex items-center">
+            <div className="w-6 h-6 rounded-full overflow-hidden mr-2">
+              <img 
+                src={selectedBook.coverImage} 
+                alt={selectedBook.title} 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h2 className="font-semibold text-neutral-800">Book Chat</h2>
           </div>
           
-          <div className="flex-1">
-            <h2 className="font-semibold text-neutral-800">{selectedBook.title}</h2>
-            <p className="text-sm text-neutral-600">{selectedBook.description}</p>
-            <div className="flex mt-1">
-              <span className={`text-xs ${
-                selectedBook.tag === 'Core' ? 'bg-primary/10 text-primary' : 
-                selectedBook.tag === 'Essential' ? 'bg-red-100 text-red-700' :
-                'bg-neutral-200 text-neutral-700'
-              } px-2 py-0.5 rounded-full mr-2`}>
-                {selectedBook.tag}
-              </span>
-              <span className="text-xs text-neutral-500">Published: {selectedBook.publishedYear}</span>
+          <div className="w-8"></div> {/* Spacer for alignment */}
+        </div>
+      </div>
+      
+      {/* Chat Section */}
+      <div className="flex-1 flex flex-col">
+        {/* Book info chip */}
+        <div className="px-4 py-3">
+          <div className="flex items-center bg-primary/10 rounded-lg p-2.5 shadow-sm">
+            <div className="w-10 h-12 rounded overflow-hidden mr-3 flex-shrink-0">
+              <img 
+                src={selectedBook.coverImage} 
+                alt={selectedBook.title} 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex-1">
+              <p className="text-xs text-primary font-medium flex items-center">
+                <BookOpen className="h-3 w-3 mr-1" />
+                Chatting with
+              </p>
+              <p className="text-sm font-semibold text-neutral-800 mb-0.5">{selectedBook.title}</p>
+              <p className="text-xs text-neutral-500">Ask any question about this book</p>
             </div>
           </div>
         </div>
-      )}
-      
-      {/* Chat Section */}
-      <div className={`flex-1 flex flex-col ${isMobileView ? 'pt-14' : ''}`}>
-        {/* Book info chip for mobile */}
-        {isMobileView && (
-          <div className="px-4 py-3">
-            <div className="flex items-center bg-primary/10 rounded-lg p-2 shadow-sm">
-              <div className="w-8 h-8 rounded overflow-hidden mr-2">
-                <img 
-                  src={selectedBook.coverImage} 
-                  alt={selectedBook.title} 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-primary font-medium flex items-center">
-                  <BookOpen className="h-3 w-3 mr-1" />
-                  Chatting with book
-                </p>
-                <p className="text-sm font-semibold text-neutral-800 line-clamp-1">{selectedBook.title}</p>
-              </div>
-            </div>
-          </div>
-        )}
         
         {/* Messages Container */}
         <div 
@@ -132,10 +138,7 @@ export function ChatInterface() {
         {showScrollButton && (
           <button 
             onClick={scrollToBottom}
-            className={`
-              absolute z-10 bg-white shadow-md rounded-full p-2
-              ${isMobileView ? 'bottom-24 right-4' : 'bottom-20 right-6'}
-            `}
+            className="absolute z-10 bg-white shadow-md rounded-full p-2 bottom-24 right-4"
             aria-label="Scroll to bottom"
           >
             <ChevronDown className="h-5 w-5 text-neutral-500" />
