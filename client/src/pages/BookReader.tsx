@@ -117,11 +117,11 @@ export default function BookReader() {
       </div>
       
       {/* Chapter Navigation */}
-      <div className="bg-neutral-50 border-b border-neutral-100">
+      <div className="bg-gradient-to-r from-primary/10 to-primary/5 border-b border-primary/20">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             <select 
-              className="bg-white border border-neutral-200 rounded-md px-3 py-1.5 text-sm flex-1 mr-2"
+              className="bg-white border border-primary/20 rounded-md px-3 py-1.5 text-sm flex-1 mr-2 focus:outline-none focus:ring-2 focus:ring-primary/30"
               value={currentChapter.id}
               onChange={(e) => navigateToChapter(Number(e.target.value))}
             >
@@ -133,18 +133,18 @@ export default function BookReader() {
               <button 
                 onClick={navigateToPreviousChapter}
                 disabled={chapters.indexOf(currentChapter) === 0}
-                className="p-1.5 bg-white border border-neutral-200 rounded-md mr-1 disabled:opacity-50"
+                className="p-1.5 bg-white border border-primary/20 rounded-md mr-1 disabled:opacity-50 hover:bg-primary/5 active:bg-primary/10"
                 aria-label="Previous chapter"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4 text-primary" />
               </button>
               <button 
                 onClick={navigateToNextChapter}
                 disabled={chapters.indexOf(currentChapter) === chapters.length - 1}
-                className="p-1.5 bg-white border border-neutral-200 rounded-md disabled:opacity-50"
+                className="p-1.5 bg-white border border-primary/20 rounded-md disabled:opacity-50 hover:bg-primary/5 active:bg-primary/10"
                 aria-label="Next chapter"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4 text-primary" />
               </button>
             </div>
           </div>
@@ -153,15 +153,15 @@ export default function BookReader() {
       
       {/* Content */}
       <div className={`flex-1 overflow-y-auto pb-24 ${isChatOpen ? 'hidden' : ''}`}>
-        <div className="p-4">
-          <article className="prose prose-blue max-w-none">
+        <div className="p-4 bg-gradient-to-b from-blue-50 to-white">
+          <article className="prose prose-blue max-w-none bg-white rounded-lg shadow-sm p-6 mb-4">
             <div dangerouslySetInnerHTML={{ 
               __html: currentChapter.content
-                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-                .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
-                .replace(/^##### (.*$)/gim, '<h5>$1</h5>')
+                .replace(/^# (.*$)/gim, '<h1 class="text-primary">$1</h1>')
+                .replace(/^## (.*$)/gim, '<h2 class="text-primary/90">$1</h2>')
+                .replace(/^### (.*$)/gim, '<h3 class="text-primary/80">$1</h3>')
+                .replace(/^#### (.*$)/gim, '<h4 class="text-primary/70">$1</h4>')
+                .replace(/^##### (.*$)/gim, '<h5 class="text-primary/60">$1</h5>')
                 .replace(/\n/gim, '<br>')
                 .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
                 .replace(/\*(.*?)\*/gim, '<em>$1</em>')
@@ -172,22 +172,26 @@ export default function BookReader() {
         </div>
         
         {/* Chapter navigation at bottom */}
-        <div className="border-t border-neutral-100 p-4">
+        <div className="border-t border-primary/10 bg-gradient-to-r from-primary/5 to-primary/10 p-4 rounded-b-lg shadow-inner">
           <div className="flex justify-between items-center">
             {chapters.indexOf(currentChapter) > 0 ? (
               <button 
                 onClick={navigateToPreviousChapter} 
-                className="flex items-center text-primary hover:underline"
+                className="flex items-center bg-white py-2 px-3 rounded-md shadow-sm border border-primary/20 text-primary hover:bg-primary/5"
               >
                 <ChevronLeft className="h-4 w-4 mr-1" />
                 Previous Chapter
               </button>
             ) : <div />}
             
+            <div className="text-xs text-primary/60 font-medium">
+              Chapter {chapters.indexOf(currentChapter) + 1} of {chapters.length}
+            </div>
+            
             {chapters.indexOf(currentChapter) < chapters.length - 1 ? (
               <button 
                 onClick={navigateToNextChapter} 
-                className="flex items-center text-primary hover:underline"
+                className="flex items-center bg-white py-2 px-3 rounded-md shadow-sm border border-primary/20 text-primary hover:bg-primary/5"
               >
                 Next Chapter
                 <ChevronRight className="h-4 w-4 ml-1" />
