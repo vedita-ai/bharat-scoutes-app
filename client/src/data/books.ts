@@ -14,7 +14,7 @@ export const books: Book[] = [
     id: 1,
     title: "Geet Bharati",
     description: "A collection of popular scout and guide songs and prayers for meetings and gatherings.",
-    coverImage: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    coverImage: "https://promptstudio-knowledgebase-data.s3.ap-south-1.amazonaws.com/bharat-scoutes/geet_bharati.webp",
     category: "Cultural",
     tag: "Core",
     publishedYear: 2019

@@ -2,8 +2,7 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { useBookContext } from "@/context/BookContext";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
-import { Bell, BookOpen, ChevronRight, Clock, Download, History, LogOut, Settings, User } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Bell, ChevronRight, Clock, Download, History, LogOut, User } from "lucide-react";
 import { books } from "@/data/books";
 
 export default function Profile() {
@@ -28,39 +27,18 @@ export default function Profile() {
             <div className={`${isMobileView ? 'px-4 py-2' : ''}`}>
               {/* Profile header with full Indian flag theme */}
               <div className="mb-6 text-white rounded-xl shadow-md overflow-hidden">
-                <div className="relative bg-gradient-to-b from-[#FF9933] via-white to-[#138808]">
-                  {/* Overlay to improve text readability */}
-                  <div className="absolute inset-0 bg-black/10"></div>
-                  
-                  {/* Ashoka Chakra representation in the center */}
-                  <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#000080] flex items-center justify-center z-10">
-                    <div className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center">
-                      <div className="relative w-8 h-8">
-                        {/* Simulating the spokes of the Ashoka Chakra with lines */}
-                        {[...Array(12)].map((_, i) => (
-                          <div 
-                            key={i} 
-                            className="absolute top-1/2 left-1/2 w-8 h-0.5 bg-white"
-                            style={{ transform: `translate(-50%, -50%) rotate(${i * 15}deg)` }}
-                          ></div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  
+                <div className="relative bg-[url('https://promptstudio-knowledgebase-data.s3.ap-south-1.amazonaws.com/bharat-scoutes/bharat-scoutes.jpeg')] bg-cover bg-center">
+                  {/* Blue overlay */}
+                  <div className="absolute inset-0 bg-[#1D4289]/50"></div>
                   {/* Profile content with the flag background */}
                   <div className="relative pt-20 pb-6 flex flex-col items-center z-10">
-                    <Avatar className="h-20 w-20 mb-4 border-4 border-white shadow-md">
-                      <AvatarImage src="https://github.com/shadcn.png" alt="User" />
-                      <AvatarFallback className="bg-[#1D4289] text-white text-xl">BS</AvatarFallback>
-                    </Avatar>
-                    <h1 className="text-xl font-bold text-center text-[#1D4289]">Bharat Scout</h1>
-                    <p className="text-[#1D4289] text-sm">Scout ID: BS12345678</p>
+                    <h1 className="text-xl font-bold text-center text-white">Bharat Scout</h1>
+                    <p className="text-white text-sm">Scout ID: BS12345678</p>
                     <div className="mt-3 flex space-x-3">
                       <button className="bg-[#FFD700] text-[#1D4289] rounded-full text-sm px-4 py-1.5 font-medium shadow-sm">
                         Edit Profile
                       </button>
-                      <button className="bg-[#1D4289] text-white rounded-full text-sm px-4 py-1.5 font-medium shadow-sm">
+                      <button className="bg-white text-[#1D4289] rounded-full text-sm px-4 py-1.5 font-medium shadow-sm">
                         View Badge Card
                       </button>
                     </div>
