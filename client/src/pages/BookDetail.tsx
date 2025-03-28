@@ -1,5 +1,5 @@
 import { useBookContext } from "@/context/BookContext";
-import { MessageSquare, ArrowLeft, Share2, Bookmark } from "lucide-react";
+import { MessageSquare, ArrowLeft, Share2, Bookmark, BookOpen } from "lucide-react";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { ChatInterface } from "@/components/chat/ChatInterface";
@@ -72,6 +72,13 @@ export default function BookDetail() {
         
         {/* Action buttons */}
         <div className="flex justify-around border-b border-neutral-200 p-2">
+          <button
+            onClick={() => setLocation("/book/read")}
+            className="flex flex-col items-center p-2 text-primary font-medium"
+          >
+            <BookOpen className="h-5 w-5 mb-1" />
+            <span className="text-xs">Read Book</span>
+          </button>
           <button className="flex flex-col items-center p-2 text-neutral-700">
             <Share2 className="h-5 w-5 mb-1" />
             <span className="text-xs">Share</span>
